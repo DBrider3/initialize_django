@@ -1,0 +1,20 @@
+repos:
+  - repo: local
+    hooks:
+      - id: black
+        name: black-test
+        entry: black --check -l 150 -t py310 .
+        always_run: true
+        pass_filenames: false
+        language: system
+        types: [python]
+
+  - repo: local
+    hooks:
+      - id: django-test
+        name: django-test
+        entry: python manage.py test app --keepdb --verbosity=2 --settings=config.test_settings
+        always_run: true
+        pass_filenames: false
+        language: system
+        types: [python]
