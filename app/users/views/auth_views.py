@@ -10,7 +10,8 @@ from core.constants import SYSTEM_CODE
 from core.common import create_response
 from core.exception import raise_exception
 from core.times import get_now
-from app.users.models import User
+from app.users.models.users import User
+from app.users.models.tokens import Token
 from app.users.serializers.auth_serializers import (
     RegisterSerializer,
     LoginSerializer,
@@ -43,6 +44,8 @@ class AuthViewSet(viewsets.ViewSet):
 
         access_token = generate_access_token(user)
         refresh_token = generate_refresh_token(user)
+
+        Token.objects.create(user=user, refresh_token=refresh_token)
 
         data = {
             "access_token": access_token,
@@ -78,6 +81,8 @@ class AuthViewSet(viewsets.ViewSet):
         access_token = generate_access_token(user)
         refresh_token = generate_refresh_token(user)
 
+        Token.objects.filter(user=user).update(refresh_token=refresh_token)
+
         data = {
             "access_token": access_token,
             "refresh_token": refresh_token,
@@ -100,6 +105,13 @@ class AuthViewSet(viewsets.ViewSet):
             raise_exception(code=SYSTEM_CODE.INVALID_FORMAT)
 
         refresh_token = serializer.validated_data["refresh_token"]
+
+        # refresh token 유효성 검사
+        user_token = Token.objects.filter(refresh_token=refresh_token).first()
+
+        if not user_token:
+            raise_exception(code=SYSTEM_CODE.TOKEN_INVALID, status=status.HTTP_401_UNAUTHORIZED)
+
         try:
             payload = jwt.decode(refresh_token, settings.SECRET_KEY, algorithms=["HS256"])
 
@@ -123,6 +135,8 @@ class AuthViewSet(viewsets.ViewSet):
 
         access_token = generate_access_token(user)
         refresh_token = generate_refresh_token(user)
+
+        Token.objects.filter(user=user).update(refresh_token=refresh_token)
 
         data = {
             "access_token": access_token,

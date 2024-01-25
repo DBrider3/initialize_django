@@ -12,7 +12,7 @@ from rest_framework import status
 from core.constants import SYSTEM_CODE, SERVICE
 from core.common import create_response
 from core.exception import raise_exception
-from app.users.models import User
+from app.users.models.users import User
 
 
 class CustomJWTAuthentication(BaseAuthentication):

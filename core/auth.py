@@ -8,7 +8,7 @@ from rest_framework import status
 
 # Project
 from core.constants import SERVICE, SYSTEM_CODE
-from app.users.models import User
+from app.users.models.users import User
 from core.exception import raise_exception
 
 
