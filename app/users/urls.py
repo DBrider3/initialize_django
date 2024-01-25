@@ -9,6 +9,7 @@ from app.users.views.user_views import UserViewSet
 auth_urls = [
     path("register", AuthViewSet.as_view({"post": "post_register"})),
     path("login", AuthViewSet.as_view({"post": "post_login"})),
+    path("refresh", AuthViewSet.as_view({"post": "post_token_refresh"})),
 ]
 
 user_urls = [
