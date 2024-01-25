@@ -4,6 +4,7 @@ cfgv==3.4.0
 click==8.1.7
 distlib==0.3.8
 Django==5.0.1
+djangorestframework==3.14.0
 filelock==3.13.1
 identify==2.5.33
 mypy-extensions==1.0.0
@@ -14,6 +15,7 @@ pathspec==0.12.1
 platformdirs==4.1.0
 pre-commit==3.6.0
 python-dotenv==1.0.0
+pytz==2023.3.post1
 PyYAML==6.0.1
 sqlparse==0.4.4
 tomli==2.0.1

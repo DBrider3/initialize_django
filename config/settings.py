@@ -40,8 +40,9 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # apps
-    "app",
+    "rest_framework",
     "core",
+    "app",
 ]
 
 MIDDLEWARE = [
@@ -139,3 +140,15 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# DRF SETTINGS
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (  # 애플리케이션에서 사용할 인증 방법을 정의
+        "config.rest_framework.CustomJWTAuthentication",  # JWT 인증 방식
+        "rest_framework.authentication.SessionAuthentication",  # 세션 인증 방식
+    ),
+    "EXCEPTION_HANDLER": "config.rest_framework.custom_api_exception_handler",  # 예외 처리기 설정
+    "DEFAULT_PARSER_CLASSES": [  # 요청 본문을 파싱하는 데  사용할 파서를 지정
+        "rest_framework.parsers.JSONParser",  # JSON 파서
+    ],
+}
