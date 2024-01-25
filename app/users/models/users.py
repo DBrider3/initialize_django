@@ -5,6 +5,7 @@ from django.db import models
 # Project
 from core.models import BaseModel
 from app.users.managers import MyUserManager
+from app.users.models.tokens import Token
 
 
 class User(AbstractBaseUser, BaseModel, PermissionsMixin):
@@ -34,3 +35,7 @@ class User(AbstractBaseUser, BaseModel, PermissionsMixin):
         "Is the user a member of staff?"
         # Simplest possible answer: All superusers are staff
         return self.is_superuser
+
+    @property
+    def refresh_token(self):
+        return Token.objects.get(user_id=self.id).refresh_token

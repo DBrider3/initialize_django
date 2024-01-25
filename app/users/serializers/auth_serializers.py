@@ -2,7 +2,7 @@
 from rest_framework import serializers
 
 # Project
-from app.users.models import User
+from app.users.models.users import User
 
 
 class RegisterSerializer(serializers.Serializer):
