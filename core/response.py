@@ -1,7 +1,5 @@
-import os
-from uuid import uuid4
+# System
 from rest_framework.response import Response
-
 
 # Project
 from core.constants import SYSTEM_CODE
