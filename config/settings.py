@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "core",
     "app",
     "app.users",
+    "app.articles",
 ]
 
 MIDDLEWARE = [
