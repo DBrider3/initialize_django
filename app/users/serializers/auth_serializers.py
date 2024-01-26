@@ -8,7 +8,7 @@ from app.users.models.users import User
 
 
 class RegisterSerializer(serializers.Serializer):
-    email = serializers.CharField(max_length=255, required=True)
+    email = serializers.EmailField(max_length=255, required=True)
     username = serializers.CharField(max_length=255, required=True)
     password = serializers.CharField(max_length=128, required=True, write_only=True)
 
@@ -19,7 +19,7 @@ class RegisterSerializer(serializers.Serializer):
 
 
 class LoginSerializer(serializers.Serializer):
-    email = serializers.CharField(max_length=255, required=True)
+    email = serializers.EmailField(max_length=255, required=True)
     password = serializers.CharField(max_length=128, required=True, write_only=True)
 
 
