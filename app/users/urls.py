@@ -14,7 +14,6 @@ auth_urls = [
 
 user_urls = [
     path("info", UserViewSet.as_view({"get": "get_user"})),
-    path("logout", UserViewSet.as_view({"get": "get_user_logout"})),
     path("password", UserViewSet.as_view({"patch": "patch_user_password"})),
 ]
 
