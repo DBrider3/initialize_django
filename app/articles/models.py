@@ -4,16 +4,15 @@ from django.conf import settings
 
 # Project
 from core.models import BaseModel
-from app.users.models import User
 
 
 class Article(BaseModel):
     title = models.CharField(max_length=255)
-    content = models.TextField()
+    content = models.TextField(null=True, blank=True)
     author = models.ForeignKey(
-        User,
+        "users.User",
         on_delete=models.DO_NOTHING,
-        related_name="articles",
+        related_name="article_user",
         blank=True,
         null=True,
     )
@@ -27,12 +26,12 @@ class Comment(BaseModel):
     article = models.ForeignKey(
         Article,
         on_delete=models.CASCADE,
-        related_name="comments",
+        related_name="comment_article",
     )
     author = models.ForeignKey(
-        User,
+        "users.User",
         on_delete=models.DO_NOTHING,
-        related_name="comments",
+        related_name="comment_user",
         blank=True,
         null=True,
     )

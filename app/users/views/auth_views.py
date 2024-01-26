@@ -1,13 +1,12 @@
 # System
 import jwt
-from django.db import IntegrityError
 from django.conf import settings
 from rest_framework import viewsets, status
 
 # Project
 from core.auth import generate_access_token, generate_refresh_token
 from core.constants import SYSTEM_CODE
-from core.common import create_response
+from core.response import create_response
 from core.exception import raise_exception
 from core.times import get_now
 from app.users.models.users import User
