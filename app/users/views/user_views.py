@@ -4,7 +4,7 @@ from rest_framework import viewsets, status
 # Project
 from core.auth import auth_requred
 from core.constants import SYSTEM_CODE
-from core.common import create_response
+from core.response import create_response
 from core.exception import raise_exception
 from app.users.models.users import User
 from app.users.serializers.user_serializers import UpdateUserPasswordSerializer

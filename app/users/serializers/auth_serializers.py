@@ -17,6 +17,11 @@ class RegisterSerializer(serializers.Serializer):
             raise_exception(code=SYSTEM_CODE.USER_ALREADY_EXIST)
         return value
 
+    def validate_username(self, value):
+        if User.objects.filter(username=value).exists():
+            raise_exception(code=SYSTEM_CODE.USER_USERNAME_EXIST)
+        return value
+
 
 class LoginSerializer(serializers.Serializer):
     email = serializers.EmailField(max_length=255, required=True)
