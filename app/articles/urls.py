@@ -24,11 +24,11 @@ comment_urls = [
         CommentViewSet.as_view({"post": "post_create_comment"}),
     ),
     path(
-        "<int:article_id>/modify/<int:comment_id>",
+        "<int:comment_id>/modify",
         CommentViewSet.as_view({"patch": "patch_modify_comment"}),
     ),
     path(
-        "<int:article_id>/delete/<int:comment_id>",
+        "<int:comment_id>/delete",
         CommentViewSet.as_view({"delete": "delete_comment"}),
     ),
 ]

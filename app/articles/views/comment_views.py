@@ -74,19 +74,14 @@ class CommentViewSet(viewsets.ViewSet):
         return response
 
     @auth_requred
-    def patch_modify_comment(self, request, article_id, comment_id):
+    def patch_modify_comment(self, request, comment_id):
         """
         댓글 수정
         """
 
         user = request.user
 
-        article = Article.objects.filter(id=article_id).first()
-
         comment = Comment.objects.filter(id=comment_id, author=user).first()
-
-        if not article:
-            raise_exception(code=SYSTEM_CODE.ARTICLE_NOT_FOUND)
 
         if not comment:
             raise_exception(code=SYSTEM_CODE.COMMENT_NOT_FOUND)
@@ -104,20 +99,14 @@ class CommentViewSet(viewsets.ViewSet):
         return create_response(status=status.HTTP_200_OK)
 
     @auth_requred
-    def delete_comment(self, request, article_id, comment_id):
+    def delete_comment(self, request, comment_id):
         """
         댓글 삭제
         """
 
         user = request.user
 
-        article = Article.objects.filter(id=article_id).first()
-
         comment = Comment.objects.filter(id=comment_id, author=user).first()
-
-        if not article:
-            raise_exception(code=SYSTEM_CODE.ARTICLE_NOT_FOUND)
-
         if not comment:
             raise_exception(code=SYSTEM_CODE.COMMENT_NOT_FOUND)
 
