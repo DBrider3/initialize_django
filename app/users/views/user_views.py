@@ -7,7 +7,6 @@ from core.constants import SYSTEM_CODE
 from core.common import create_response
 from core.exception import raise_exception
 from app.users.models.users import User
-from app.users.models.tokens import Token
 from app.users.serializers.user_serializers import UpdateUserPasswordSerializer
 
 
@@ -29,19 +28,6 @@ class UserViewSet(viewsets.ViewSet):
         }
 
         return create_response(data=data, status=status.HTTP_200_OK)
-
-    @auth_requred
-    def get_user_logout(self, request):
-        """
-        로그아웃
-        """
-        user = request.user
-
-        token = Token.objects.filter(user=user).first()
-        token.refresh_token = None
-        token.save()
-
-        return create_response(status=status.HTTP_200_OK)
 
     @auth_requred
     def patch_user_password(self, request):
