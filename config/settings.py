@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "django_extensions",
     # apps
     "core",
     "app",
@@ -156,3 +157,7 @@ REST_FRAMEWORK = {
         "rest_framework.parsers.JSONParser",  # JSON 파서
     ],
 }
+
+# Celery Settings
+CELERY_BROKER_URL = "redis://localhost:6379/0"
+CELERY_RESULT_BACKEND = "redis://localhost:6379/0"
