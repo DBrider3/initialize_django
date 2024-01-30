@@ -40,9 +40,9 @@ class CommentViewSet(viewsets.ViewSet):
         if not serializer.is_valid():
             raise_exception(code=SYSTEM_CODE.INVALID_FORMAT)
 
-        content = serializer.validated_data["content"]
+        validated_data = serializer.validated_data
 
-        Comment.objects.create(content=content, article=article, author=user)
+        Comment.objects.create(**validated_data, article=article, author=user)
 
         return create_response(status=status.HTTP_201_CREATED)
 
@@ -53,8 +53,6 @@ class CommentViewSet(viewsets.ViewSet):
         """
 
         pagination = CustomPagination()
-
-        user = request.user
 
         article = Article.objects.filter(id=article_id).first()
 
