@@ -1,7 +1,6 @@
 # System
 from django.urls import path, include
 
-
 # Project
 from app.users.views.auth_views import AuthViewSet
 from app.users.views.user_views import UserViewSet
