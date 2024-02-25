@@ -18,6 +18,7 @@ djangorestframework==3.14.0
 exceptiongroup==1.2.0
 executing==2.0.1
 filelock==3.13.1
+gunicorn==21.2.0
 identify==2.5.33
 ipython==8.20.0
 jedi==0.19.1
