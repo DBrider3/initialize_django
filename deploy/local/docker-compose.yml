@@ -1,0 +1,49 @@
+version: '3'
+services:
+  nginx:
+    container_name: nginx
+    volumes:
+      - static_volume:/misc/django_api_server/static
+    build:
+      context: ../..
+      dockerfile: ./deploy/local/nginx/nginx.Dockerfile
+    ports:
+      - 8080:8080
+    depends_on:
+      - django
+    links:
+      - django
+    entrypoint:
+      - /entrypoint.sh
+
+  django:
+    build:
+      context: ../..
+      dockerfile: ./deploy/local/django/django.Dockerfile
+    container_name: django
+    ports:
+      - 8000:8000
+    volumes:
+      - static_volume:/misc/django_api_server/static
+    env_file:
+      - ../../.env
+    entrypoint:
+      - /misc/django_api_server/deploy/local/django/entrypoint.sh
+    depends_on:
+      - mariadb
+      
+  mariadb:
+    image: mariadb:10
+    container_name: mariadb
+    ports:
+      - 13306:3306
+    environment:
+      MARIADB_DATABASE: service_db
+      MARIADB_USER: db_user
+      MARIADB_PASSWORD: db_user1!
+      MARIADB_ROOT_PASSWORD: root1!
+    restart: always
+
+
+volumes:
+  static_volume:

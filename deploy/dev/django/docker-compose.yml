@@ -1,0 +1,35 @@
+version: '3'
+services:
+  nginx:
+    container_name: nginx
+    volumes:
+      - static_volume:/misc/django_api_server/static
+    build:
+      context: ../..
+      dockerfile: ./deploy/dev/nginx/nginx.Dockerfile
+    ports:
+      - 8080:8080
+    depends_on:
+      - django
+    links:
+      - django
+    entrypoint:
+      - /entrypoint.sh
+
+  django:
+    build:
+      context: ../..
+      dockerfile: ./deploy/dev/django/django.Dockerfile
+    container_name: django
+    ports:
+      - 8000:8000
+    volumes:
+      - static_volume:/misc/django_api_server/static
+    env_file:
+      - ../../.env.dev
+    entrypoint:
+      - /misc/django_api_server/deploy/dev/django/entrypoint.sh
+
+
+volumes:
+  static_volume:
